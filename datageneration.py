@@ -49,7 +49,10 @@ except ImportError:
         'cannot import numpy, make sure numpy package is installed')
 
 import image_converter
-from carla.client import make_carla_client, VehicleControl
+
+import carla
+
+
 from carla.planner.map import CarlaMap
 from carla.tcp import TCPConnectionError
 from carla.transform import Transform, Scale
@@ -507,7 +510,7 @@ def main():
 
     while True:
         try:
-            with make_carla_client(args.host, args.port) as client:
+            with carla.Client(str(args.host), int(args.port)) as client:
                 game = CarlaGame(client, args)
                 game.execute()
                 break
